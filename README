@@ -1,0 +1,53 @@
+Labyrinth::Plugin::ArtUsersContributed PeLabyrinth::Plugin::Articles::Diary(3)
+
+
+
+NAME
+       Labyrinth::Plugin::Articles::Diary - Diary plugin for Labyrinth
+       framework
+
+DESCRIPTION
+       Contains all the diary handling functionality for Labyrinth.
+
+PUBLIC INTERFACE METHODS
+       Archive
+       List
+       Meta
+       Cloud
+       Search
+       Item
+       Comment
+       LatestComments
+       Posted
+
+ADMIN INTERFACE METHODS
+       Access
+       Admin
+       Add
+       Edit
+       Save
+       Delete
+       ListComment
+       EditComment
+       SaveComment
+       MarkIP
+       PromoteComment
+       DeleteComment
+
+SEE ALSO
+       Labyrinth
+
+AUTHOR
+       Barbie, <barbie@missbarbell.co.uk> for Miss Barbell Productions,
+       <http://www.missbarbell.co.uk/>
+
+COPYRIGHT & LICENSE
+         Copyright (C) 2002-2011 Barbie for Miss Barbell Productions
+         All Rights Reserved.
+
+         This module is free software; you can redistribute it and/or
+         modify it under the Artistic License 2.0.
+
+
+
+perl v5.10.1                      2011-01Labyrinth::Plugin::Articles::Diary(3)
