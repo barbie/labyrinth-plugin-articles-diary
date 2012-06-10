@@ -1,5 +1,8 @@
 Changes for the Labyrinth-Plugin-Articles-Diary
 
+1.02	current
+	- module name fixes in request file.
+
 1.01	19/01/2011
 	- path fixes in vhost.
 
