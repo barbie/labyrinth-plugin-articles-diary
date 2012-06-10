@@ -1,6 +1,6 @@
 {
     "name": "Labyrinth::Plugin::Articles::Diary",
-    "version": "1.01",
+    "version": "1.02",
     "abstract": "Diary plugin for the Labyrinth framework",
     "author": [
         "Barbie (BARBIE) <barbie@cpan.org>"
@@ -23,17 +23,19 @@
     "prereqs" : {
         "test" : {
             "requires": {
+                "IO::File": "0",
                 "Test::More": "0.70"
             },
             "recommends": {
                 "Test::Pod": "1.00",
                 "Test::Pod::Coverage": "0.08",
-                "Test::CPAN::Meta": "0.13",
-                "Test::JSON::Meta": "0.08"
+                "Test::CPAN::Meta": "0",
+                "Test::CPAN::Meta::JSON": "0"
             }
         },
         "runtime" : {
             "requires" : {
+              "perl": "5.006",
               "Labyrinth": "5.03",
               "Labyrinth::Plugin::Core": "5.04",
               "Clone": "0",
@@ -45,7 +47,7 @@
     "provides": {
         "Labyrinth::Plugin::Articles::Diary": {
             "file": "lib/Labyrinth/Plugin/Articles/Diary.pm",
-            "version": "1.01"
+            "version": "1.02"
         }
     },
     "no_index": {

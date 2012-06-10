@@ -1,16 +1,28 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
 use 5.006;
+
 use ExtUtils::MakeMaker;
+
 WriteMakefile(
-    NAME            => 'Labyrinth::Plugin::Articles::Diary',
-    VERSION_FROM    => 'lib/Labyrinth/Plugin/Articles/Diary.pm',
-    PREREQ_PM       => {
+    AUTHOR              => 'Barbie <barbie@cpan.org>',
+    NAME                => 'Labyrinth::Plugin::Articles::Diary',
+    VERSION_FROM        => 'lib/Labyrinth/Plugin/Articles/Diary.pm',
+    ABSTRACT            => 'Diary plugin for the Labyrinth framework',
+    NO_META             => 1,
+    PREREQ_PM           => {
+
+        # prereqs
         'Labyrinth'                 => '5.03',
         'Labyrinth::Plugin::Core'   => '5.04',
         'Clone'                     => 0,
-        'Time::Local'               => 0
+        'Time::Local'               => 0,
 
-    },
-    NO_META     => 1,
-    ABSTRACT    => 'Diary plugin for the Labyrinth framework',
-    AUTHOR      => 'Barbie <barbie@cpan.org>',
+        # build/test prereqs
+        'Test::More'                => '0.70',
+        'IO::File'                  => '0'
+
+    }
 );
