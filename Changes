@@ -1,13 +1,17 @@
 Changes for the Labyrinth-Plugin-Articles-Diary
 
-1.02	10/06/2012
-	- module name fixes in request file.
-	- META tests no longer require specific versions.
-	- added minimum perl version (5.006).
+        - added indexes to SQL.
+        - change file dates changed to meet W3CDTF standards.
+        - fixed searches.
+
+1.02    2012-06-10
+        - module name fixes in request file.
+        - META tests no longer require specific versions.
+        - added minimum perl version (5.006).
         - reworked Makefile.PL for clarity.
 
-1.01	19/01/2011
-	- path fixes in vhost.
+1.01    2011-01-19
+        - path fixes in vhost.
 
-1.00	19/01/2011
-	- first official release
+1.00    2011-01-19
+        - first official release
