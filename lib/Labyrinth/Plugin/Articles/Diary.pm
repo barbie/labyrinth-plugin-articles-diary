@@ -239,7 +239,7 @@ sub LatestComments {
 }
 
 sub Posted {
-    return    unless $cgiparams{'userid'};
+    return    unless($cgiparams{'userid'});
     my @rows = $dbi->GetQuery('array','CountPosts',$cgiparams{'userid'});
     $tvars{data}{posts} = @rows ? $rows[0]->[0] : 0;
 }
@@ -352,6 +352,7 @@ sub SaveComment {
     }
 
     return  if FieldCheck(\@callfields,\@cmandatory);
+    $tvars{data}->{publish} ||= 1;
 
     my @fields = (  $tvars{data}->{subject},
                     $tvars{data}->{body},
@@ -397,12 +398,13 @@ sub DeleteComment {
 # Private Methods
 
 sub _count_comments {
-    return  unless($tvars{articles} && scalar(keys %{$tvars{articles}}));
+    my $type = shift || 'mainarts';
+    return  unless($tvars{$type} && scalar(@{$tvars{$type}}));
 
-    my $ids = join(',', map {$_->{data}{articleid}} @{$tvars{mainarts}});
+    my $ids = join(',', map {$_->{data}{articleid}} @{$tvars{$type}});
     my @rows = $dbi->GetQuery('array','CountDiaryComments',{ids => $ids});
     my %rows = map {$_->[0] => $_->[1]} @rows;
-    for my $item (@{$tvars{mainarts}}) {
+    for my $item (@{$tvars{$type}}) {
         $item->{comments} = $rows{$item->{data}{articleid}} || 0;
     }
 }
