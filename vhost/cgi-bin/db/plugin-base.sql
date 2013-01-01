@@ -32,8 +32,10 @@ CREATE TABLE `comments` (
   `publish` int(4) default NULL,
   `ipaddr` varchar(255) NOT NULL default '',
   `body` blob,
-  PRIMARY KEY  (`commentid`)
-) ENGINE=MyISAM AUTO_INCREMENT=335 DEFAULT CHARSET=latin1;
+  PRIMARY KEY  (`commentid`),
+  INDEX ARTID (`entryid`),
+  INDEX PUBID (`publish`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -52,7 +54,8 @@ CREATE TABLE `volumes` (
   `sectionid` int(10) unsigned NOT NULL default '0',
   `archdate` varchar(32) default NULL,
   `counter` int(10) unsigned default '1',
-  PRIMARY KEY  (`volumeid`,`sectionid`)
+  PRIMARY KEY  (`volumeid`,`sectionid`),
+  INDEX SECID (`sectionid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
 
