@@ -3,6 +3,7 @@ Changes for the Labyrinth-Plugin-Articles-Diary
         - added indexes to SQL.
         - change file dates changed to meet W3CDTF standards.
         - fixed searches.
+        - updated test suite.
 
 1.02    2012-06-10
         - module name fixes in request file.
