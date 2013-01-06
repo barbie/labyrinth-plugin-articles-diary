@@ -38,4 +38,3 @@ while(<$fh>) {
 }
 
 is($latest,1,'... latest version not listed');
-h
