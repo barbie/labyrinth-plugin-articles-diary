@@ -1,6 +1,6 @@
 {
     "name": "Labyrinth::Plugin::Articles::Diary",
-    "version": "1.02",
+    "version": "1.03",
     "abstract": "Diary plugin for the Labyrinth framework",
     "author": [
         "Barbie (BARBIE) <barbie@cpan.org>"
@@ -47,7 +47,7 @@
     "provides": {
         "Labyrinth::Plugin::Articles::Diary": {
             "file": "lib/Labyrinth/Plugin/Articles/Diary.pm",
-            "version": "1.02"
+            "version": "1.03"
         }
     },
     "no_index": {
@@ -55,7 +55,8 @@
     },
 
     "resources": {
-        "license": "http://dev.perl.org/licenses/",
+        "license": "http://www.perlfoundation.org/artistic_license_2_0",
+        "homepage": "http://labyrinth.missbarbell.co.uk",
         "bugtracker": { "web": "http://rt.cpan.org/Public/Dist/Display.html?Name=Labyrinth-Plugin-Articles-Diary" },
         "repository": {
             "url": "git://github.com/barbie/labyrinth-plugin-articles-diary.git",
