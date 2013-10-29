@@ -87,6 +87,10 @@ my ($BLOCK,$ALLOW) = (1,2);
 
 Retrieves a list of archived diary entries
 
+=item Page
+
+Retrieves an set of diary entries, for a given page. Default to first page.
+
 =item List
 
 Retrieves an initial list of diary entries. Primarily used to prepare a front
@@ -132,6 +136,16 @@ sub Archive {
     shift->SUPER::Archive();
     $tvars{articles} = undef;
     $cgiparams{sectionid} = $oldid; # reset
+}
+
+sub Page {
+    return List()   if($cgiparams{volume}); # volumes need to be handled by the List function
+
+    $cgiparams{sectionid}            = $SECTIONID;
+    $settings{data}{article_pageset} = $settings{diary_pageset};
+
+    shift->SUPER::Page();
+    _count_comments();
 }
 
 sub List {
