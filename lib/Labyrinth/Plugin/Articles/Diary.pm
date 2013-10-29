@@ -85,21 +85,40 @@ my ($BLOCK,$ALLOW) = (1,2);
 
 =item Archive
 
+Retrieves a list of archived diary entries
+
 =item List
+
+Retrieves an initial list of diary entries. Primarily used to prepare a front
+page.
 
 =item Meta
 
-=item Cloud
+Retrieves a list of diary entries based on given meta tags.
 
 =item Search
 
+Retrieves a list of diary entries based on a given search string.
+
+=item Cloud
+
+Provides the current tag cloud.
+
 =item Item
+
+Provides a single diary entry.
 
 =item Comment
 
+Allow a user to submit a comment.
+
 =item LatestComments
 
+Retrieve the most recent comments, for use in a side panel or similar.
+
 =item Posted
+
+Number of posts posted by the given writer.
 
 =back
 
@@ -253,27 +272,54 @@ sub Posted {
 
 =item Access
 
+Check whether user has the appropriate admin access.
+
 =item Admin
+
+Lists the current set of diary entries.
+
+Also provides the delete, copy and promote functionality from the main
+administration page for the given section.
 
 =item Add
 
+Add a diary entry.
+
 =item Edit
+
+Edit a diary entry.
 
 =item Save
 
+Save a diary entry.
+
 =item Delete
+
+Delete a diary entry.
 
 =item ListComment
 
+List current unpublished comments.
+
 =item EditComment
+
+Edit a given comment.
 
 =item SaveComment
 
-=item MarkIP
+Save a given comment.
 
 =item PromoteComment
 
+Promote a given comment.
+
 =item DeleteComment
+
+Delete a given comment.
+
+=item MarkIP
+
+Mark matching comments as appropriate. Actions are block and allow.
 
 =back
 
@@ -285,6 +331,11 @@ sub Admin {
     return  unless AccessUser($LEVEL);
     $cgiparams{sectionid} = $SECTIONID;
     shift->SUPER::Admin();
+
+    for my $article (@{ $tvars{data} }) {
+        my @rows = $dbi->GetQuery('array','CountDiaryComments',{ids => $article->{articleid}});
+        $article->{comments} = @rows ? $rows[0]->[1] : '';
+    }
 }
 
 sub Add {
@@ -326,13 +377,49 @@ sub Delete {
 
 sub ListComment {
     return  unless AccessUser($LEVEL);
-    my @rows = $dbi->GetQuery('hash','GetAdminComments');
-    for(@rows) {
-        $_->{postdate} = formatDate(17,$_->{createdate});
+
+    my (@rows);
+    if($cgiparams{pattern}) {
+        @rows = $dbi->GetQuery('hash','GetCommentMatches','%'.$cgiparams{pattern}.'%');
+        for my $row (@rows) {
+            BlockIP($row->{author},$row->{ipaddr});
+            $dbi->DoQuery('DeleteComment',$row->{'commentid'});
+        }
     }
 
-    $tvars{comments} = \@rows;
-    $tvars{comcount} = scalar @rows;
+    @rows = $dbi->GetQuery('hash','GetAdminCommentIDs');
+
+    my $start = $cgiparams{start} || 1;
+    my $limit = $cgiparams{limit} || $settings{comment_limit} || 100;
+    my $last  = int(scalar(@rows) / $limit);
+    my $max   = scalar(@rows);
+
+    LogDebug("start=$start, limit=$limit, last=$last, max=$max");
+
+    if(@rows) {
+        my $count = ($start-1) * $limit;
+        splice(@rows,0,$count)  if($count > 0);
+        splice(@rows,$limit)    if(@rows > $limit);
+        my $ids = join(',',map {$_->{commentid}} @rows);
+
+        @rows = $dbi->GetQuery('hash','GetAdminComments',{ ids => $ids });
+        for(@rows) {
+            $_->{postdate} = formatDate(17,$_->{createdate});
+        }
+
+        $tvars{comments} = \@rows;
+    }
+
+    my ($prev,$next) = ($start-1,$start+1);
+    $prev = 1       if($prev < 1);
+    $next = $last   if($next > $last);
+
+    $tvars{page}{prev}      = $prev;
+    $tvars{page}{start}     = $start;
+    $tvars{page}{next}      = $next;
+    $tvars{page}{last}      = $last;
+    $tvars{page}{limit}     = $limit;
+    $tvars{page}{comments}  = $max;
 }
 
 sub EditComment {
@@ -365,6 +452,16 @@ sub SaveComment {
     $dbi->IDQuery('SaveComment',@fields);
 }
 
+sub PromoteComment {
+    return  unless AuthorCheck('GetCommentByID','commentid',$LEVEL);
+    $dbi->DoQuery('PromoteComment',$tvars{data}->{publish}+1,$cgiparams{'commentid'});
+}
+
+sub DeleteComment {
+    return  unless AuthorCheck('GetCommentByID','commentid',$LEVEL);
+    $dbi->DoQuery('DeleteComment',$cgiparams{'commentid'});
+}
+
 sub MarkIP {
     return  unless AuthorCheck('GetCommentByID','commentid',$LEVEL);
     return  unless $cgiparams{mark};
@@ -382,16 +479,6 @@ sub MarkIP {
             $dbi->DoQuery('DeleteComment',$row->{'commentid'});
         }
     }
-}
-
-sub PromoteComment {
-    return  unless AuthorCheck('GetCommentByID','commentid',$LEVEL);
-    $dbi->DoQuery('PromoteComment',$tvars{data}->{publish}+1,$cgiparams{'commentid'});
-}
-
-sub DeleteComment {
-    return  unless AuthorCheck('GetCommentByID','commentid',$LEVEL);
-    $dbi->DoQuery('DeleteComment',$cgiparams{'commentid'});
 }
 
 # -------------------------------------
@@ -437,4 +524,3 @@ Miss Barbell Productions, L<http://www.missbarbell.co.uk/>
   modify it under the Artistic License 2.0.
 
 =cut
-

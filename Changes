@@ -1,5 +1,8 @@
 Changes for the Labyrinth-Plugin-Articles-Diary
 
+        - documentation updates.
+        - fixes to comment methods.
+
 1.03    2013-01-06
         - added indexes to SQL.
         - change file dates changed to meet W3CDTF standards.
