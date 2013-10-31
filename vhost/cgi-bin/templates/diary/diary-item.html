@@ -1,27 +1,30 @@
 [% 
-    htmltitle = 'News &amp; Views' ;
-    title = 'News & Views' ;
+    htmltitle = 'Diary' ;
+    title = htmltitle ;
 
-    crumb1_name = 'News &amp; Views' ;
+    crumb2_name = 'Diary' ;
+    crumb2_href = '/cgi-bin/pages.cgi?act=diary-admin' ;
+    crumb1_name = article.data.title | html ;
 %]
 
 [% INCLUDE "public/tinymce.html" %]
 
-<h2><a href="[% webpath %]/diary/[% article.data.articleid %]" rel="bookmark" title="Permanent Link to [% article.data.title %]">[% article.data.title %]</a></h2>
+<h2><a href="[% webpath %]/diary/[% article.data.articleid %]" rel="bookmark" title="Permanent Link to [% article.data.title %]">[% article.data.title | html %]</a></h2>
 
 <p class="small">Posted on [% article.data.postdate %]</p>
 
+<div class="boxer">
 [% FOREACH item = article.body %]
 [% IF item.type == 1 %]
     [% IF item.link %]
-    [% IF item.align  %][% class  = item.align  %][% ELSE %][% class  = "inline" %][% END %]
+    [% IF item.align ; THEN ; class = item.alignclass ; ELSE ; class = "inline" ; END %]
     [% IF item.href %]
-        <div class="thumb[% item.align %]" >
+        <div class="thumb[% item.alignclass %]" >
         <a href='[% item.href %]'><img src="[% webpath %]/[% item.link %]" alt="[% item.tag %]"
         [% IF item.width  %]width="[% item.width %]"[% END %]
         [% IF item.height %]height="[% item.height %]"[% END %]
         /></a>
-        [% IF item.tag %]<p>[% item.tag %][% END %]
+        [% IF item.tag %]<p>[% item.tag | html %]</p>[% END %]
         </div>
     [% ELSE %]
         <div class="thumb[% item.align %]" >
@@ -29,7 +32,7 @@
         [% IF item.width  %]width="[% item.width %]"[% END %]
         [% IF item.height %]height="[% item.height %]"[% END %]
         />
-        [% IF item.tag %]<p>[% item.tag %][% END %]
+        [% IF item.tag %]<p>[% item.tag | html %]</p>[% END %]
         </div>
     [% END %]
     [% END %]
@@ -41,12 +44,9 @@
         <a href='[% item.href %]'>[% item.body %]</a>
 [% END %]
 [% END %]
+</div>
 
 <a name="comments"></a>
-
-[% IF article.data.latest %]
-<p>Comments Disabled.
-[% ELSE %]
 <h3>Comments</h3>
 
 [% IF comments.0 %]
@@ -61,6 +61,9 @@
     <hr />
 [% END %]
 
+[% IF article.data.latest %]
+<h3>Comments have been disabled for this post.</h3>
+[% ELSE %]
 <a name="addcomment"></a>
 <h3>Add A Comment</h3>
 
@@ -74,6 +77,7 @@ was done in error and you were posting a relevant comment, please contact the
 <p class="alert">There are invalid or missing fields, as noted by the &empty; symbol. Please try again.</p>
 [% END %]
 
+<div class="boxer">
 <form method="post" action="[% cgipath %]/pages.cgi">
 <input type="hidden" name="act" value="diary-comment" />
 <input type="hidden" name="articleid" value="[% article.data.articleid %]" />
@@ -87,28 +91,29 @@ Ignore this: <input type="text" name="typekey" value="" />
 
 <table class="blocker">
 <tr><th width="95">Your Name *</th>
-    <td class="alert">[% data.author_err %]</td>
+    <th class="alert">[% data.author_err %]</th>
     <td><input type="text" name="author" value="[% data.author %]" size="50" /></td>
 </tr>
 <tr><th>Subject</th>
-    <td width="10" class="alert">[% data.subject_err %]</td>
+    <th width="10" class="alert">[% data.subject_err %]</th>
     <td><input type="text" name="subject" value="[% data.subject %]" size="50" /></td>
 </tr>
 <tr><th>Comment *</th>
-    <td class="alert">[% comment.body_err %]</td>
-    <td><textarea name="body" rows="20" cols="50" />[% data.body %]</textarea></td>
+    <th class="alert">[% comment.body_err %]</th>
+    <td><textarea name="body" rows="20" cols="50">[% data.body %]</textarea></td>
 </tr>
 <tr><th>Link</th>
-    <td class="alert">[% data.href_err %]</td>
+    <th class="alert">[% data.href_err %]</th>
     <td><input type="text" name="href" value="[% data.href %]" size="50" /></td>
 </tr>
 <tr><th></th>
-    <td></td>
+    <th></th>
     <td><input type="submit" value="Submit" /></td>
 </tr>
 </table>
+
 </form>
-[% END %]
+</div>
 [% END %]
 
 [% IF thanks %]

@@ -32,10 +32,11 @@
 <input type="hidden" name="display" value="display0" />
 <input type="hidden" name="list" value="[% article.blocks %]" />
 
+<div class="boxer">
 <table class="blocker">
 <tr><th width="85">Title *</th>
     <th width="10" class="alert">[% article.data.title_err %]</th>
-    <td><input type="text" name="title" value="[% article.data.title %]" size="55" /></td>
+    <td><input type="text" name="title" value="[% article.data.title %]" size="50" /></td>
 </tr>
 <tr><th>Status *</th>
     <th class="alert">[% article.data.publish_err %]</th>
@@ -43,44 +44,53 @@
 </tr>
 <tr><th>Disable Comments</th>
     <th class="alert">[% article.data.latest_err %]</th>
-    <td><input type="checkbox" name="latest" [% IF article.data.latest %]checked="checked"[% END %] /></td>
+    <td><input type="checkbox" name="latest" [% IF article.data.latest %]checked="checked"[% END %] value="1" /></td>
 </tr>
-<tr><th rowspan="2">Metadata</th>
-    <th class="alert" rowspan="2">[% article.data.metadata_err %]</th>
-    <td><input type="text" id="metadata" name="metadata" value="[% article.data.metadata %]" size="55" /></td>
+<tr><th>Metadata</th>
+    <th class="alert">[% article.data.metadata_err %]</th>
+    <td><input type="text" id="metadata" name="metadata" value="[% article.data.metadata %]" size="50" /></td>
 </tr>
-<tr><td>[% FOREACH tag = metatags %]<a href="javascript:AddTag('[% tag %]')">[% tag %]</a> [% END %]</td>
+<tr><th></th>
+    <th></th>
+    <td>[% FOREACH tag = metatags %]<a href="javascript:AddTag('[% tag %]')">[% tag %]</a> [% END %]</td>
 </tr>
+</table>
+</div>
 
 
 [% IF article.blocks %]
 [% FOREACH item = article.body %]
-
-<tr><td colspan="3" class="blank">
 [% IF item %]
 <input type="hidden" name="BLOCK[% item.orderno %]" value="[% item.type %],[% item.paraid %]" />
 [% END %]
-</td></tr>
+[% END %]
+[% END %]
 
+<div class="boxer">
+<table class="blocker">
+
+[% IF article.blocks %]
+[% FOREACH item = article.body %]
 [% IF item %]
+
 [% IF item.type == 1 %]
 <tr><th>[% item.orderno %] : Image</th>
     <th class="alert">[% item.error %]</th>
     <td><input type="hidden" name="display[% item.orderno %]" value="" />
         <input type="hidden" name="gallery[% item.orderno %]" value="[% item.imageid %]" />
     [% IF item.link %]
-        <img id="display[% item.orderno %]" src="/[% item.link %]" alt="[% item.tag %]" /><br />
+        <img id="display[% item.orderno %]" src="[% webpath %]/[% item.link %]" alt="[% item.tag %]" />
     [% ELSE %]
-        <img id="display[% item.orderno %]" src="/images/blank.png" alt="" /><br />
+        <img id="display[% item.orderno %]" src="[% webpath %]/images/blank.png" alt="" />
     [% END %]
-        <input type="file" name="IMAGEUPLOAD[% item.orderno %]" />
+        <br /><input type="file" name="IMAGEUPLOAD[% item.orderno %]" />
         <br />[ <a href="javascript:PhotoGallery('display[% item.orderno %]')">Select from Gallery</a> ]
-        <table width="300">
-        <tr><td>Align:</td><td>[% item.ddalign %]</td></tr>
-        <tr><td>HyperLink:</td><td><input type="text" name="IMAGELINK[% item.orderno %]" value="[% item.href %]"   size="40" /></td></tr>
-        <tr><td>Tag:</td><td><input       type="text" name="IMAGETAG[% item.orderno %]"  value="[% item.tag %]"    size="40" /></td></tr>
-        <tr><td>Width:</td><td><input     type="text" name="width[% item.orderno %]"     value="[% item.width %]"  size="40" /></td></tr>
-        <tr><td>Height:</td><td><input    type="text" name="height[% item.orderno %]"    value="[% item.height %]" size="40" /></td></tr>
+        <table>
+        <tr><td>Align:</td><td colspan="3">[% item.ddalign %]</td></tr>
+        <tr><td>HyperLink:</td><td><input type="text" name="IMAGELINK[% item.orderno %]" value="[% item.href %]" /></td>
+            <td>Tag:</td><td><input       type="text" name="IMAGETAG[% item.orderno %]"  value="[% item.tag %]" /></td></tr>
+        <tr><td>Width:</td><td><input     type="text" name="width[% item.orderno %]"     value="[% item.width %]" /></td>
+            <td>Height:</td><td><input    type="text" name="height[% item.orderno %]"    value="[% item.height %]" /></td></tr>
         </table>
         
         <p>Please note that when initially selecting images from the Photo Gallery, the loaded image wlll be the
@@ -112,10 +122,11 @@
 [% END %]
 
 [% ELSE %]
-<tr><td class="center">No content yet!</td></tr>
+<tr><td class="centre">No content yet!</td></tr>
 [% END %]
 
 </table>
+</div>
 
 <p align="center">[ <a href="javascript:doSubmit('AddImage',0)">Add an image</a> | <a href="javascript:doSubmit('AddPara',0)">Add a text block</a> ]
 <p align="center"><input type="submit" value="Submit" />
@@ -124,20 +135,19 @@
 
 [% IF editmode == 'Edit' %]
 
-<h1>Preview</h1>
+<h2>Preview</h2>
 
-<h2>[% preview.data.title %]</h2>
+<h3>[% preview.data.title %]</h3>
 <p class="small">Posted on [% preview.data.postdate %]</p>
 
 [% FOREACH item = preview.body %]
 [% IF item.type == 2 ; THEN ; item.body ; END %]
 [% IF item.type == 1 %]
-
     [% IF item.link %]
-    [% IF item.align  %][% class  = item.align  %][% ELSE %][% class  = "inline" %][% END %]
+    [% IF item.align ; THEN ; class = item.alignclass ; ELSE ; class = "inline" ; END %]
     [% IF item.href %]
-        <div class="thumb[% item.align %]" >
-        <a href='[% item.href %]'><img class="[% class %]" src="/[% item.link %]" alt="[% item.tag %]"
+        <div class="thumb[% item.alignclass %]" >
+        <a href='[% item.href %]'><img class="[% class %]" src="[% webpath %]/[% item.link %]" alt="[% item.tag %]"
         [% IF item.width  %]width="[% item.width %]"[% END %]
         [% IF item.height %]height="[% item.height %]"[% END %]
         /></a>
@@ -145,7 +155,7 @@
         </div>
     [% ELSE %]
         <div class="thumb[% item.align %]" >
-        <img class="[% class %]" src="/[% item.link %]" alt="[% item.tag %]"
+        <img class="[% class %]" src="[% webpath %]/[% item.link %]" alt="[% item.tag %]"
         [% IF item.width  %]width="[% item.width %]"[% END %]
         [% IF item.height %]height="[% item.height %]"[% END %]
         />
@@ -170,14 +180,14 @@
       [% END %]
       <br />
     [% END %]
-      <a href="[% cgipath %]/pages.cgi?act=diary-item&amp;articleid=[% article.data.articleid %]#comments">[% IF article.data.comments > 0 ; THEN ; article.data.comments ; ELSE ; '0' ; END %] COMMENTS</a>
+      <a href="[% cgipath %]/pages.cgi?act=diary-item&amp;articleid=[% article.data.articleid %]#comments">[% IF comments > 0 ; THEN ; comments.size ; ELSE ; '0' ; END %] COMMENTS</a>
     [% IF user.access > 3 %]
     | Edit | Delete
     [% END %]
     </p>
 
-[% IF article.data.comments %]
 <h3>Comments</h3>
+[% IF comments.0 %]
     [% FOREACH item = comments %]
         [% IF item.subject %]<h4>[% item.subject %]</h4>[% END %]
         [% item.body %]
@@ -186,6 +196,11 @@
         | <a href="[% cgipath %]/pages.cgi?act=diary-cdelete2&amp;commentid=[% item.commentid %]&amp;articleid=[% article.data.articleid %]">Delete</a></p>
         <hr />
     [% END %]
+[% ELSE %]
+    <p>No Comments</p>
+    <hr />
 [% END %]
+
+[% IF article.data.latest %]<h3>Comments Disabled</h3>[% END %]
 
 [% END %]
