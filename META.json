@@ -1,6 +1,6 @@
 {
     "name": "Labyrinth::Plugin::Articles::Diary",
-    "version": "1.03",
+    "version": "1.04",
     "abstract": "Diary plugin for the Labyrinth framework",
     "author": [
         "Barbie (BARBIE) <barbie@cpan.org>"
@@ -36,8 +36,8 @@
         "runtime" : {
             "requires" : {
               "perl": "5.006",
-              "Labyrinth": "5.03",
-              "Labyrinth::Plugin::Core": "5.04",
+              "Labyrinth": "5.17",
+              "Labyrinth::Plugin::Core": "5.13",
               "Clone": "0",
               "Time::Local": "0"
             }
@@ -47,7 +47,7 @@
     "provides": {
         "Labyrinth::Plugin::Articles::Diary": {
             "file": "lib/Labyrinth/Plugin/Articles/Diary.pm",
-            "version": "1.03"
+            "version": "1.04"
         }
     },
     "no_index": {

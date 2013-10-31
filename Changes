@@ -1,5 +1,6 @@
 Changes for the Labyrinth-Plugin-Articles-Diary
 
+1.04    2013-10-31
         - documentation updates.
         - fixes to comment methods.
         - added paging functionality via Article in core plugins.
