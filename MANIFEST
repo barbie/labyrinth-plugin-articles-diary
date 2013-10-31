@@ -21,3 +21,5 @@ vhost/cgi-bin/templates/diary/diary-cadminedit.html
 vhost/cgi-bin/templates/diary/diary-cadminlist.html
 vhost/cgi-bin/templates/diary/diary-item.html
 vhost/cgi-bin/templates/diary/diary-list.html
+vhost/html/css/style.css
+vhost/html/js/diary.js

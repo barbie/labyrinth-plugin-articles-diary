@@ -2,6 +2,8 @@ Changes for the Labyrinth-Plugin-Articles-Diary
 
         - documentation updates.
         - fixes to comment methods.
+        - added paging functionality via Article in core plugins.
+        - added missing CSS and Javascript files.
 
 1.03    2013-01-06
         - added indexes to SQL.
