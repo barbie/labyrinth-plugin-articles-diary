@@ -1,5 +1,6 @@
 Changes
 lib/Labyrinth/Plugin/Articles/Diary.pm
+LICENSE
 Makefile.PL
 MANIFEST
 META.json
