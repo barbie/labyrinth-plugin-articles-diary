@@ -1,5 +1,5 @@
 --- #YAML:1.0
-name:                       Labyrinth::Plugin::Articles::Diary
+name:                       Labyrinth-Plugin-Articles-Diary
 version:                    1.04
 abstract:                   Diary plugin for the Labyrinth framework
 author:
