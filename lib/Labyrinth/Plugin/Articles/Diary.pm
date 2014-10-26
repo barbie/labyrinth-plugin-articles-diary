@@ -434,6 +434,9 @@ sub ListComment {
     $tvars{page}{last}      = $last;
     $tvars{page}{limit}     = $limit;
     $tvars{page}{comments}  = $max;
+
+    my @offenders = $dbi->GetQuery('hash','WorstOffenders');
+    $tvars{offenders} = \@offenders if(@offenders);
 }
 
 sub EditComment {
