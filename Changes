@@ -1,6 +1,8 @@
 Changes for the Labyrinth-Plugin-Articles-Diary
 ===============================================
 
+        - fixed license fields in META.json to be lists.
+
 1.05    2014-04-17
         - fixed distribution name in META.
         - added LICENSE file.
