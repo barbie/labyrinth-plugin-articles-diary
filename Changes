@@ -2,7 +2,7 @@ Changes for the Labyrinth-Plugin-Articles-Diary
 ===============================================
 
         - fixed license fields in META.json to be lists.
-        - extended META test suite.
+        - extended META and functional test suite.
         - added permission check to Comment methods.
         - added worst offenders listings.
 
