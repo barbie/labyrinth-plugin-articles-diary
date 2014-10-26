@@ -8,7 +8,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     AUTHOR              => 'Barbie <barbie@cpan.org>',
-    NAME                => 'Labyrinth-Plugin-Articles-Diary',
+    NAME                => 'Labyrinth::Plugin::Articles::Diary',
     VERSION_FROM        => 'lib/Labyrinth/Plugin/Articles/Diary.pm',
     ABSTRACT            => 'Diary plugin for the Labyrinth framework',
     NO_META             => 1,
