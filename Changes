@@ -5,6 +5,7 @@ Changes for the Labyrinth-Plugin-Articles-Diary
         - extended META and functional test suite.
         - added permission check to Comment methods.
         - added worst offenders listings.
+        - upgraded prequisites.
 
 1.05    2014-04-17
         - fixed distribution name in META.
