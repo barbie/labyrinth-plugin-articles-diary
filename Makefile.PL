@@ -21,6 +21,7 @@ WriteMakefile(
         'Time::Local'               => 0,
 
         # build/test prereqs
+        'Labyrinth::Test::Harness'  => '1.03',
         'Test::More'                => '0.70',
         'IO::File'                  => '0'
 
