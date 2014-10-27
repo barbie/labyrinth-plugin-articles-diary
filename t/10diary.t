@@ -233,6 +233,7 @@ SKIP: {
     diag($loader->error)    unless($res);
 
     $vars = $loader->vars;
+    $test_data->{add}{data}{$_} = $vars->{article}{data}{$_}    for(qw(postdate)); # these will always be the current timestamp
     #diag("add vars=".Dumper($vars->{article}));
     is_deeply($vars->{article},$test_data->{add},'add variables are as expected');
 
@@ -245,6 +246,7 @@ SKIP: {
     diag($loader->error)    unless($res);
 
     $vars = $loader->vars;
+    $test_data->{edit1}{data}{$_} = $vars->{article}{data}{$_}  for(qw(postdate)); # these will always be the current timestamp
     #diag("edit1 vars=".Dumper($vars));
     is_deeply($vars->{article},$test_data->{edit1},"base data provided, when no page given");
 
@@ -257,6 +259,7 @@ SKIP: {
     diag($loader->error)    unless($res);
 
     $vars = $loader->vars;
+    $test_data->{edit2}{data}{$_} = $vars->{article}{data}{$_}  for(qw(postdate)); # these will always be the current timestamp
     #diag("edit2 vars=".Dumper($vars));
     is_deeply($vars->{article},$test_data->{edit2},"page 2 data provided, with no reordering");
 
@@ -270,7 +273,7 @@ SKIP: {
     diag($loader->error)    unless($res);
 
     $vars = $loader->vars;
-    $test_data->{admin1}[0]{createdate} = $vars->{data}[0]{createdate}; # this will always be the current timestamp
+    $test_data->{admin1}[0]{$_} = $vars->{data}[0]{$_}  for(qw(createdate postdate)); # these will always be the current timestamp
     #diag("admin1 vars=".Dumper($vars->{data}));
     is_deeply($vars->{data},$test_data->{admin1},'admin list variables are as expected');
 
@@ -291,8 +294,7 @@ SKIP: {
     $res = is($loader->action('Articles::Diary::Edit'),1);
     diag($loader->error)    unless($res);
     $vars = $loader->vars;
-    $test_data->{edit3}{data}{quickname} = $vars->{draft0}{data}{quickname};    # this will always be the current timestamp
-    $test_data->{edit3}{data}{createdate} = $vars->{draft0}{data}{createdate};  # this will always be the current timestamp
+    $test_data->{edit3}{data}{$_} = $vars->{draft0}{data}{$_}   for(qw(quickname createdate postdate)); # these will always be the current timestamp
     #diag("save1 edit3 vars=".Dumper($vars->{draft0}));
     is_deeply($vars->{draft0},$test_data->{edit3},'admin list variables are as expected');
 
@@ -312,8 +314,7 @@ SKIP: {
     $res = is($loader->action('Articles::Diary::Edit'),1);
     diag($loader->error)    unless($res);
     $vars = $loader->vars;
-    $test_data->{edit4}{data}{quickname} = $vars->{draft0}{data}{quickname};    # this will always be the current timestamp
-    $test_data->{edit4}{data}{createdate} = $vars->{draft0}{data}{createdate};  # this will always be the current timestamp
+    $test_data->{edit4}{data}{$_} = $vars->{draft0}{data}{$_}   for(qw(quickname createdate postdate)); # these will always be the current timestamp
     #diag("save2 edit4 vars=".Dumper($vars->{draft0}));
     is_deeply($vars->{draft0},$test_data->{edit4},'admin list variables are as expected');
 
