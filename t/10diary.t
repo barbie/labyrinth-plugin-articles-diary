@@ -168,7 +168,7 @@ my @plugins = qw(
 # -----------------------------------------------------------------------------
 # Set up
 
-my $loader = Labyrinth::Test::Harness->new( keep => 1 );
+my $loader = Labyrinth::Test::Harness->new( keep => 0 );
 my $dir = $loader->directory;
 
 my $res = $loader->prep(
