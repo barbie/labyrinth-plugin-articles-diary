@@ -1,6 +1,6 @@
 {
     "name": "Labyrinth-Plugin-Articles-Diary",
-    "version": "1.05",
+    "version": "1.06",
     "abstract": "Diary plugin for the Labyrinth framework",
     "author": [
         "Barbie (BARBIE) <barbie@cpan.org>"
@@ -48,7 +48,7 @@
     "provides": {
         "Labyrinth::Plugin::Articles::Diary": {
             "file": "lib/Labyrinth/Plugin/Articles/Diary.pm",
-            "version": "1.05"
+            "version": "1.06"
         }
     },
     "no_index": {
